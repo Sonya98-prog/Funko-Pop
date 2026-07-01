@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя коллекция Funko Pop</title>
+    <!-- Подключаем стильный шрифт -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600&display=swap" rel="stylesheet">
+    <style>
+        /* Сброс стилей и базовые настройки */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Шапка */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+            border-bottom: 1px solid #e5e5e5;
+            padding-bottom: 20px;
+        }
+
+        .title h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .title p {
+            font-size: 1rem;
+            color: #6c757d;
+            font-weight: 300;
+            margin-top: 5px;
+        }
+
+        .badge {
+            background: #1a1a1a;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .badge span {
+            font-weight: 400;
+            opacity: 0.7;
+        }
+
+        /* Сетка карточек */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        /* Карточка */
+        .pop-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(0,0,0,0.04);
+            cursor: default;
+        }
+
+        .pop-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 40px rgba(0,0,0,0.08);
+            border-color: transparent;
+        }
+
+        /* Контейнер для изображения */
+        .pop-card .image-wrapper {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Квадрат для Pop */
+            background: #f0f2f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: background 0.3s;
+        }
+
+        .pop-card:hover .image-wrapper {
+            background: #fafbfc;
+        }
+
+        .pop-card .image-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+            transition: transform 0.3s;
+        }
+
+        .pop-card:hover .image-wrapper img {
+            transform: scale(1.03);
+        }
+
+        /* Информация внизу карточки */
+        .pop-card .info {
+            padding: 18px 16px 20px;
+            border-top: 1px solid #f1f3f5;
+        }
+
+        .pop-card .info .number {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #adb5bd;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .pop-card .info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            line-height: 1.3;
+        }
+
+        .pop-card .info .series {
+            font-size: 0.85rem;
+            color: #868e96;
+            font-weight: 400;
+            margin-top: 4px;
+        }
+
+        /* Адаптив для телефонов */
+        @media (max-width: 600px) {
+            body { padding: 20px 15px; }
+            header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .title h1 { font-size: 2rem; }
+            .grid { gap: 15px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+            .pop-card .info { padding: 12px; }
+            .pop-card .info h3 { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <div class="title">
+                <h1>🎯 Мои Funko попы</h1>
+            </div>
+            <div class="badge">
+                <span>всего</span> <span id="counter">0</span>
+            </div>
+        </header>
+
+        <!-- Сетка -->
+        <div class="grid" id="catalogGrid">
+            <!-- 
+                ⬇️ КАРТОЧКИ ВСТАВЛЯЙ СЮДА ⬇️
+
+                Скопируй этот блок для каждой фигурки и поменяй:
+                - src="img/название_файла.jpg" (путь к картинке)
+                - #001 (номер)
+                - Бэтмен (имя персонажа)
+                - DC Heroes (серия/вселенная)
+            -->
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Ahri.png" alt="Ари Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#1041</div>
+                    <h3>Ари</h3>
+                    <div class="series">League of Legends</div>
+                </div>
+            </div>
+
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Child.png" alt="Бейби Йода Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#368</div>
+                    <h3>Бейби Йода</h3>
+                    <div class="series">Star Wars Mandolorian</div>
+                </div>
+            </div>
+
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Ariel.png" alt="Ариэль Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#1012</div>
+                    <h3>Ариэль</h3>
+                    <div class="series">Disney Princess</div>
+                </div>
+            </div>
+
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Christmas.png" alt="Дух Рождества Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#42</div>
+                    <h3>Дух Рождества</h3>
+                    <div class="series">A Christmas Carol</div>
+                </div>
+            </div>
+
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Derpy.png" alt="Дерпи Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#2260</div>
+                    <h3>Дерпи</h3>
+                    <div class="series">K-POP Demons Hunters</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Frank.png" alt="Франк Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#1623</div>
+                    <h3>Франк</h3>
+                    <div class="series">Killer Klowns</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Fuegoleon.png" alt="Фуеголеон Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#1551</div>
+                    <h3>Фуеголеон</h3>
+                    <div class="series">Black Clover</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Geralt.png" alt="Геральт Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#149</div>
+                    <h3>Дерпи</h3>
+                    <div class="series">The Wither</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Hisoka.png" alt="Хисока Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#652</div>
+                    <h3>Хисока</h3>
+                    <div class="series">Hunter x Hunter</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Jinx.png" alt="Джинкс Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#1602</div>
+                    <h3>Джинкс</h3>
+                    <div class="series">Arcane</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/KdaArhi.png" alt="КДА Ари Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#1220</div>
+                    <h3>КДА Ари</h3>
+                    <div class="series">KDA</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Levi.jpg" alt="Леви Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#1169</div>
+                    <h3>Леви</h3>
+                    <div class="series">Attack on Titan</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Lionel Messi.jpg" alt="Мессии Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#50</div>
+                    <h3>Лионель Мессии</h3>
+                    <div class="series">PSG</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/MatinEddie.png" alt="Мартин и Эдди Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#1134</div>
+                    <h3>Мартин и Эдди</h3>
+                    <div class="series">Frasier</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Meliodas.png" alt="Мелиодас Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#1497</div>
+                    <h3>Мелиодас</h3>
+                    <div class="series">The Seven Deadly Sins</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Moana.png" alt="Моана Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#1016</div>
+                    <h3>Моана</h3>
+                    <div class="series">Disney Princess</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/PoisonIvy.png" alt="Ядовитый плющ Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#528</div>
+                    <h3>Ядовитый плющ</h3>
+                    <div class="series">DC</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Sekiro.png" alt="Секиро Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#777</div>
+                    <h3>Секиро</h3>
+                    <div class="series">Sekiro</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Sekiro.png" alt="Сэнши Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#2202</div>
+                    <h3>Сэнши</h3>
+                    <div class="series">Delicious in Dungeon</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Sharapova.png" alt="Мария Шарапова Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#02</div>
+                    <h3>Мария Шарапова</h3>
+                    <div class="series">Tennis Legends</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/the mandalorian.png" alt="Мандалорец Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#461</div>
+                    <h3>Мандалорец</h3>
+                    <div class="series">Star Wars</div>
+                </div>
+            </div>
+            <div class="pop-card">
+                <div class="image-wrapper">
+                    <img src="img/Wanda.png" alt="Ванда Funko Pop">
+                </div>
+                <div class="info">
+                    <div class="number">#715</div>
+                    <h3>Ванда</h3>
+                    <div class="series">Wanda Vision</div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+        // Автоматический подсчет карточек, чтобы обновить счетчик в шапке
+        document.addEventListener('DOMContentLoaded', function() {
+            const grid = document.getElementById('catalogGrid');
+            // Считаем элементы с классом .pop-card внутри сетки
+            const cards = grid.querySelectorAll('.pop-card');
+            const counter = document.getElementById('counter');
+            counter.textContent = cards.length;
+
+            // Если карточек нет, покажем забавное сообщение в консоли (на всякий случай)
+            if (cards.length === 0) {
+                console.log('Добавь свои фигурки! Используй шаблон в HTML.');
+            }
+        });
+    </script>
+
+</body>
+</html>
